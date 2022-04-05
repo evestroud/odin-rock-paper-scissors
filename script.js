@@ -1,3 +1,9 @@
+// add element selectors for buttons and win/lose
+const rock = document.querySelector('.rock')
+const paper = document.querySelector('.paper')
+const scissors = document.querySelector('.scissors')
+const output = document.querySelector('.output')
+//
 // function computerPlay
 // 	randomly chooses from RPS
 
