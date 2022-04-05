@@ -44,3 +44,8 @@ body {
 .buttons li {
   margin: 5px;
 }
+
+.game p {
+  text-align: center;
+  margin: 0 10vw;
+}

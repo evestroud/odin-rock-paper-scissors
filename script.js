@@ -25,12 +25,13 @@ function play(event) {
   winner = playTurn(playerSelection, computerSelection);
   console.log(winner);
   turn += 1;
-  let turnsLeft = `${5 - turn} turns left.`;
-  output.textContent = "You played " + playerSelection.toLowerCase() + 
-      " and the " + "computer played " + computerSelection + "! " + 
-      turnsLeft;
-  playerScore += winner === "Player wins!" ? 1 : 0;
-  computerScore += winner === "Computer wins!" ? 1 : 0;
+  playerScore += winner === "Player" ? 1 : 0;
+  computerScore += winner === "Computer" ? 1 : 0;
+  let resultsMessage = "You played " + playerSelection.toLowerCase() + 
+    " and the " + "computer played " + computerSelection + "! "
+  let scoreMessage = "You have won " + playerScore + " rounds and the " +
+      "computer has won " + computerScore + " rounds! "
+  let turnMessage = `${5 - turn} turns left.`;
   if (turn >= 5) {
     instructions.textContent = "Game over! Do you want to start a new game?"
     newGameButton()
@@ -40,8 +41,9 @@ function play(event) {
         : playerScore < computerScore
         ? "Computer"
         : "Draw";
-    output.textContent = "Final winner: " + finalWinner + "!";
+    turnMessage = "Final winner: " + finalWinner + "!";
   }
+  output.textContent = resultsMessage + scoreMessage + turnMessage;
 }
 
 
