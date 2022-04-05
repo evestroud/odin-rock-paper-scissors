@@ -10,6 +10,7 @@ const output = document.querySelector("#output");
 // Haven't learned objects in this language yet so just gonna use global vars
 let playerScore;
 let computerScore;
+let winner;
 let turn;
 
 newGame.addEventListener("click", game);
@@ -19,7 +20,28 @@ scissors.addEventListener("click", play);
 
 function play(event) {
   // Handler for game buttons. Plays the turn using the button text.
-  playTurn(event.target.textContent, computerPlay());
+  let playerSelection = event.target.textContent;
+  let computerSelection = computerPlay();
+  winner = playTurn(playerSelection, computerSelection);
+  console.log(winner);
+  turn += 1;
+  let turnsLeft = `${5 - turn} turns left.`;
+  output.textContent = "You played " + playerSelection.toLowerCase() + 
+      " and the " + "computer played " + computerSelection + "! " + 
+      turnsLeft;
+  playerScore += winner === "Player wins!" ? 1 : 0;
+  computerScore += winner === "Computer wins!" ? 1 : 0;
+  if (turn >= 5) {
+    instructions.textContent = "Game over! Do you want to start a new game?"
+    newGameButton()
+    let finalWinner =
+      playerScore > computerScore
+        ? "Player"
+        : playerScore < computerScore
+        ? "Computer"
+        : "Draw";
+    output.textContent = "Final winner: " + finalWinner + "!";
+  }
 }
 
 
@@ -62,27 +84,19 @@ function playTurn(playerSelection, computerSelection) {
 
 function game() {
   //	 calls playRound for a 5 round game
-  instructions.textContent = "Choose your weapon!"
-  rpsButtons()
+  instructions.textContent = "Choose your weapon!";
+  rpsButtons();
+  output.textContent = "5 rounds left!";
   playerScore = 0;
   computerScore = 0;
-  turn = 0
-  for (let i = 0; i < 5; i++) {
-    //	use prompt() to get input from user
-    let playerSelection = prompt("Choose your weapon!");
-    let computerSelection = computerPlay();
-    let winner = playTurn(playerSelection, computerSelection);
-    output.textContent = "This round: " + winner;
-    playerScore += winner === "Player wins!" ? 1 : 0;
-    computerScore += winner === "Computer wins!" ? 1 : 0;
-  }
-  let finalWinner =
-    playerScore > computerScore
-      ? "Player"
-      : playerScore < computerScore
-      ? "Computer"
-      : "Draw";
-  output.textContent = "Final winner: " + finalWinner + "!";
+  turn = 0;
+  //for (let i = 0; i < 5; i++) {
+  //  //	use prompt() to get input from user
+  //  let playerSelection = prompt("Choose your weapon!");
+  //  let computerSelection = computerPlay();
+  //  let winner = playTurn(playerSelection, computerSelection);
+  //  output.textContent = "This round: " + winner;
+  //}
 }
 
 function newGameButton() {
