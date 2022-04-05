@@ -1,8 +1,9 @@
 // add element selectors for buttons and win/lose
-const rock = document.querySelector('.rock')
-const paper = document.querySelector('.paper')
-const scissors = document.querySelector('.scissors')
-const output = document.querySelector('.output')
+const instructions = document.querySelector('#instructions')
+const rock = document.querySelector('#rock')
+const paper = document.querySelector('#paper')
+const scissors = document.querySelector('#scissors')
+const output = document.querySelector('#output')
 
 function computerPlay() {
 // 	randomly chooses from RPS
@@ -37,8 +38,22 @@ function playTurn(playerSelection, computerSelection) {
 	}
 }
 
-// function Game
-// 	calls playRound for a 5 round game
-//	use prompt() to get input from user
+function game() {
+	//	 calls playRound for a 5 round game
+	let playerScore = 0;
+	let computerScore = 0;
+	for (let i = 0; i < 5; i++) {
+		//	use prompt() to get input from user
+		let playerSelection = prompt('Choose your weapon!');
+		let computerSelection = computerPlay();
+		let winner = playTurn(playerSelection, computerSelection);
+		output.textContent = 'This round: ' + winner;
+		playerScore += (winner === 'Player wins!') ? 1 : 0;
+		computerScore += (winner === 'Computer wins!') ? 1 : 0;
+	}
+	let finalWinner = (playerScore > computerScore) ? 'Player' :
+		(playerScore < computerScore) ? 'Computer' : 'Draw';
+	output.textContent = 'Final winner: ' + finalWinner + '!';
+}
 
 // make more helper functions if necessary
