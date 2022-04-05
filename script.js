@@ -1,10 +1,13 @@
 // add element selectors for buttons and win/lose
-const buttons = document.querySelector('ul');
 const instructions = document.querySelector("#instructions");
+const buttons = document.querySelector('ul');
+const newGame = document.querySelector('#new-game');
 const rock = document.querySelector("#rock");
 const paper = document.querySelector("#paper");
 const scissors = document.querySelector("#scissors");
 const output = document.querySelector("#output");
+
+newGame.addEventListener("click", game);
 
 function computerPlay() {
   // 	randomly chooses from RPS
@@ -65,6 +68,18 @@ function game() {
   output.textContent = "Final winner: " + finalWinner + "!";
 }
 
-buttons.removeChild(rock);
-buttons.removeChild(paper);
-buttons.removeChild(scissors);
+function newGameButton() {
+  buttons.removeChild(rock);
+  buttons.removeChild(paper);
+  buttons.removeChild(scissors);
+  buttons.appendChild(newGame);
+}
+
+function rpsButtons() {
+  buttons.removeChild(newGame);
+  buttons.appendChild(rock);
+  buttons.appendChild(paper);
+  buttons.appendChild(scissors);
+}
+
+newGameButton()
