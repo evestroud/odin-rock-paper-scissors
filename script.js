@@ -7,13 +7,18 @@ const paper = document.querySelector("#paper");
 const scissors = document.querySelector("#scissors");
 const output = document.querySelector("#output");
 
+// Haven't learned objects in this language yet so just gonna use global vars
+let playerScore;
+let computerScore;
+let turn;
+
 newGame.addEventListener("click", game);
 rock.addEventListener("click", play);
 paper.addEventListener("click", play);
 scissors.addEventListener("click", play);
 
 function play(event) {
-  // console.log(event.target);
+  // Handler for game buttons. Plays the turn using the button text.
   playTurn(event.target.textContent, computerPlay());
 }
 
@@ -41,17 +46,17 @@ function playTurn(playerSelection, computerSelection) {
     (playerSelection === "scissors" && computerSelection === "paper")
   ) {
     //	 return a string that declares the winner
-    return "Player wins!";
+    return "Player";
   } else if (
     (playerSelection === "rock" && computerSelection === "paper") ||
     (playerSelection === "paper" && computerSelection === "scissors") ||
     (playerSelection === "scissors" && computerSelection === "rock")
   ) {
     //	 return a string that declares the winner
-    return "Computer wins!";
+    return "Computer";
   } else {
     //	 return a string that declares the winner
-    return "Draw!";
+    return "Draw";
   }
 }
 
@@ -59,8 +64,9 @@ function game() {
   //	 calls playRound for a 5 round game
   instructions.textContent = "Choose your weapon!"
   rpsButtons()
-  let playerScore = 0;
-  let computerScore = 0;
+  playerScore = 0;
+  computerScore = 0;
+  turn = 0
   for (let i = 0; i < 5; i++) {
     //	use prompt() to get input from user
     let playerSelection = prompt("Choose your weapon!");
