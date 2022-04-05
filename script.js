@@ -1,4 +1,5 @@
 // add element selectors for buttons and win/lose
+const buttons = document.querySelector('ul');
 const instructions = document.querySelector("#instructions");
 const rock = document.querySelector("#rock");
 const paper = document.querySelector("#paper");
@@ -63,3 +64,7 @@ function game() {
       : "Draw";
   output.textContent = "Final winner: " + finalWinner + "!";
 }
+
+buttons.removeChild(rock);
+buttons.removeChild(paper);
+buttons.removeChild(scissors);
