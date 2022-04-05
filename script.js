@@ -8,6 +8,15 @@ const scissors = document.querySelector("#scissors");
 const output = document.querySelector("#output");
 
 newGame.addEventListener("click", game);
+rock.addEventListener("click", play);
+paper.addEventListener("click", play);
+scissors.addEventListener("click", play);
+
+function play(event) {
+  // console.log(event.target);
+  playTurn(event.target.textContent, computerPlay());
+}
+
 
 function computerPlay() {
   // 	randomly chooses from RPS
@@ -48,6 +57,8 @@ function playTurn(playerSelection, computerSelection) {
 
 function game() {
   //	 calls playRound for a 5 round game
+  instructions.textContent = "Choose your weapon!"
+  rpsButtons()
   let playerScore = 0;
   let computerScore = 0;
   for (let i = 0; i < 5; i++) {
