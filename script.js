@@ -1,4 +1,4 @@
-// add element selectors for buttons and win/lose
+// add element selectors for buttons and text objects
 const instructions = document.querySelector("#instructions");
 const buttons = document.querySelector('ul');
 const newGame = document.querySelector('#new-game');
@@ -19,18 +19,18 @@ paper.addEventListener("click", play);
 scissors.addEventListener("click", play);
 
 function play(event) {
-  // Handler for game buttons. Plays the turn using the button text.
+  // Handler for game buttons. Gets the arg for playTurn from the button text
   let playerSelection = event.target.textContent;
   let computerSelection = computerPlay();
   winner = playTurn(playerSelection, computerSelection);
-  console.log(winner);
   turn += 1;
   playerScore += winner === "Player" ? 1 : 0;
   computerScore += winner === "Computer" ? 1 : 0;
   let resultsMessage = "You played " + playerSelection.toLowerCase() + 
     " and the " + "computer played " + computerSelection + "! "
-  let scoreMessage = "You have won " + playerScore + " rounds and the " +
-      "computer has won " + computerScore + " rounds! "
+  let winnerMessage = (winner === "Player") ? "You won! " : (winner ===
+    "Computer") ? "Computer won! " : "Draw!"
+  let scoreMessage = `Score: You: ${playerScore} Computer: ${computerScore}. `
   let turnMessage = `${5 - turn} turns left.`;
   if (turn >= 5) {
     instructions.textContent = "Game over! Do you want to start a new game?"
@@ -43,7 +43,8 @@ function play(event) {
         : "Draw";
     turnMessage = "Final winner: " + finalWinner + "!";
   }
-  output.textContent = resultsMessage + scoreMessage + turnMessage;
+  output.innerHTML = resultsMessage + winnerMessage + "<br />" + 
+    scoreMessage + "<br /><br />" + turnMessage;
 }
 
 
@@ -92,13 +93,6 @@ function game() {
   playerScore = 0;
   computerScore = 0;
   turn = 0;
-  //for (let i = 0; i < 5; i++) {
-  //  //	use prompt() to get input from user
-  //  let playerSelection = prompt("Choose your weapon!");
-  //  let computerSelection = computerPlay();
-  //  let winner = playTurn(playerSelection, computerSelection);
-  //  output.textContent = "This round: " + winner;
-  //}
 }
 
 function newGameButton() {
