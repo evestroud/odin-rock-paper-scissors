@@ -1,5 +1,5 @@
 # odin-rock-paper-scissors
 
-Rock Paper Scissors project for Project Odin
+Rock Paper Scissors project for The Odin Project
 
-Currently runs only using browser prompts. Have to call the function 'game' in the console to start it. Win status is output to the #output element but the buttons on the page are inactive. This fulfills the basic requirements of the assignment but I want to come back and connect the buttons and text objects to make a responsive webpage to play the game with.
+I have previous programming experience from before starting The Odin Project so I didn't find this project to be an interesting challenge, so I took it upon myself to figure out the basics of manipulating the DOM and handling events so I could implement the game with a web interface!
