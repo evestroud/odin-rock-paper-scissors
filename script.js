@@ -33,34 +33,54 @@ function computerPlay() {
 
 function playTurn(event) {
   // play a single round of RPS
-  // make sure input is case insensitive
-  let playerSelection = event.target.textContent.toLowerCase();
+  let playerSelection = event.target.parentElement.id;
   let computerSelection = computerPlay();
+  let winner;
   // return a string that declares the winner
   if (
     (playerSelection === "rock" && computerSelection === "scissors") ||
     (playerSelection === "paper" && computerSelection === "rock") ||
     (playerSelection === "scissors" && computerSelection === "paper")
   ) {
-    playerWinsRound();
+    winner = "player";
+    playerScore += 1;
   } else if (
     (playerSelection === "rock" && computerSelection === "paper") ||
     (playerSelection === "paper" && computerSelection === "scissors") ||
     (playerSelection === "scissors" && computerSelection === "rock")
   ) {
-    computerWinsRound();
+    winner = "computer";
+    computerScore += 1;
   } else {
-    return "Draw";
+    winner = "draw";
   }
+  displayGameState(winner, playerSelection, computerSelection);
 }
 
-function playerWinsRound() {
-  playerScore += 1;
-
-}
-
-function computerWinsRound() {
-  computerScore += 1;
+function displayGameState(winner, playerSelection, computerSelection) {
+  let resultsMessage =
+    "You played " +
+    playerSelection +
+    " and the computer played " +
+    computerSelection +
+    "! ";
+  let winnerMessage =
+    winner === "player"
+      ? "You won! "
+      : winner === "computer"
+      ? "Computer won! "
+      : "Draw!";
+  let scoreMessage = `Score: You: ${playerScore} Computer: ${computerScore}. `;
+  let turnMessage = (playerScore > computerScore) ? "Player has the lead!"
+      : (playerScore < computerScore) ? "Computer has the lead!"
+      : "No one has the lead!"
+  output.innerHTML =
+    resultsMessage +
+    winnerMessage +
+    "<br />" +
+    scoreMessage +
+    "<br /><br />" +
+    turnMessage;
 }
 
 function game() {
