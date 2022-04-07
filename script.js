@@ -9,61 +9,15 @@ const output = document.querySelector("#output");
 
 // add listeners for buttons
 newGame.addEventListener("click", game);
-rock.addEventListener("click", play);
-paper.addEventListener("click", play);
-scissors.addEventListener("click", play);
+rock.addEventListener("click", playTurn);
+paper.addEventListener("click", playTurn);
+scissors.addEventListener("click", playTurn);
 
 // Haven't learned objects in this language yet so using global vars instead
 let playerScore;
 let computerScore;
 let winner;
 let turn;
-
-function play(event) {
-  // Handler for game buttons
-  // Get the argument for playTurn from the button text
-  let playerSelection = event.target.textContent;
-  let computerSelection = computerPlay();
-  winner = playTurn(playerSelection, computerSelection);
-  turn += 1;
-  playerScore += winner === "Player" ? 1 : 0;
-  computerScore += winner === "Computer" ? 1 : 0;
-  // Create strings to tell the player about the game state
-  let resultsMessage =
-    "You played " +
-    playerSelection.toLowerCase() +
-    " and the computer played " +
-    computerSelection +
-    "! ";
-  let winnerMessage =
-    winner === "Player"
-      ? "You won! "
-      : winner === "Computer"
-      ? "Computer won! "
-      : "Draw!";
-  let scoreMessage = `Score: You: ${playerScore} Computer: ${computerScore}. `;
-  let turnMessage = `${5 - turn} turns left.`;
-  // Game over after 5 turns. Reset buttons and update strings with results
-  if (turn >= 5) {
-    instructions.textContent = "Game over! Do you want to start a new game?";
-    newGameButton();
-    let finalWinner =
-      playerScore > computerScore
-        ? "Player"
-        : playerScore < computerScore
-        ? "Computer"
-        : "Draw";
-    turnMessage = "Final winner: " + finalWinner + "!";
-  }
-  // Put all the gamestate strings into the output element
-  output.innerHTML =
-    resultsMessage +
-    winnerMessage +
-    "<br />" +
-    scoreMessage +
-    "<br /><br />" +
-    turnMessage;
-}
 
 function computerPlay() {
   // randomly chooses from RPS
@@ -77,26 +31,36 @@ function computerPlay() {
   }
 }
 
-function playTurn(playerSelection, computerSelection) {
+function playTurn(event) {
   // play a single round of RPS
   // make sure input is case insensitive
-  playerSelection = playerSelection.toLowerCase();
+  let playerSelection = event.target.textContent.toLowerCase();
+  let computerSelection = computerPlay();
   // return a string that declares the winner
   if (
     (playerSelection === "rock" && computerSelection === "scissors") ||
     (playerSelection === "paper" && computerSelection === "rock") ||
     (playerSelection === "scissors" && computerSelection === "paper")
   ) {
-    return "Player";
+    playerWinsRound();
   } else if (
     (playerSelection === "rock" && computerSelection === "paper") ||
     (playerSelection === "paper" && computerSelection === "scissors") ||
     (playerSelection === "scissors" && computerSelection === "rock")
   ) {
-    return "Computer";
+    computerWinsRound();
   } else {
     return "Draw";
   }
+}
+
+function playerWinsRound() {
+  playerScore += 1;
+
+}
+
+function computerWinsRound() {
+  computerScore += 1;
 }
 
 function game() {
