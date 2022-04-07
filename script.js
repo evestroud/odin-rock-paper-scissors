@@ -1,7 +1,7 @@
 // add element selectors for buttons and text objects
 const instructions = document.querySelector("#instructions");
 const buttons = document.querySelector("ul");
-const newGame = document.querySelector("#new-game");
+const game = document.querySelector("#new-game");
 const rock = document.querySelector("#rock");
 const paper = document.querySelector("#paper");
 const scissors = document.querySelector("#scissors");
@@ -9,7 +9,7 @@ const roundState = document.querySelector("#round-state");
 const gameState = document.querySelector("#game-state");
 
 // add listeners for buttons
-newGame.addEventListener("click", game);
+game.addEventListener("click", newGame);
 rock.addEventListener("click", playTurn);
 paper.addEventListener("click", playTurn);
 scissors.addEventListener("click", playTurn);
@@ -57,6 +57,9 @@ function playTurn(event) {
   }
   displayRoundState(winner, playerSelection, computerSelection);
   displayGameState();
+  if (playerScore >= 5 || computerScore >= 5) {
+    gameOver();
+  }
 }
 
 function displayRoundState(winner, playerSelection, computerSelection) {
@@ -95,14 +98,20 @@ function displayGameState() {
     turnMessage;
 }
 
-function game() {
+function newGame() {
   // Update buttons and page text, initialize game variables
   instructions.textContent = "Choose your weapon!";
   rpsButtons();
   roundState.textContent = "5 rounds left!";
+  gameState.textContent = "";
   playerScore = 0;
   computerScore = 0;
   turn = 0;
+}
+
+function gameOver() {
+  instructions.textContent = "Game over! Do you want to start a new game?";
+  newGameButton();
 }
 
 function newGameButton() {
@@ -110,12 +119,12 @@ function newGameButton() {
   buttons.removeChild(rock);
   buttons.removeChild(paper);
   buttons.removeChild(scissors);
-  buttons.appendChild(newGame);
+  buttons.appendChild(game);
 }
 
 function rpsButtons() {
   // Remove new game button and add game buttons
-  buttons.removeChild(newGame);
+  buttons.removeChild(game);
   buttons.appendChild(rock);
   buttons.appendChild(paper);
   buttons.appendChild(scissors);
