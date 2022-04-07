@@ -5,7 +5,8 @@ const newGame = document.querySelector("#new-game");
 const rock = document.querySelector("#rock");
 const paper = document.querySelector("#paper");
 const scissors = document.querySelector("#scissors");
-const output = document.querySelector("#output");
+const roundState = document.querySelector("#round-state");
+const gameState = document.querySelector("#game-state");
 
 // add listeners for buttons
 newGame.addEventListener("click", game);
@@ -54,10 +55,11 @@ function playTurn(event) {
   } else {
     winner = "draw";
   }
-  displayGameState(winner, playerSelection, computerSelection);
+  displayRoundState(winner, playerSelection, computerSelection);
+  displayGameState();
 }
 
-function displayGameState(winner, playerSelection, computerSelection) {
+function displayRoundState(winner, playerSelection, computerSelection) {
   let resultsMessage =
     "You played " +
     playerSelection +
@@ -70,14 +72,24 @@ function displayGameState(winner, playerSelection, computerSelection) {
       : winner === "computer"
       ? "Computer won! "
       : "Draw!";
-  let scoreMessage = `Score: You: ${playerScore} Computer: ${computerScore}. `;
-  let turnMessage = (playerScore > computerScore) ? "Player has the lead!"
-      : (playerScore < computerScore) ? "Computer has the lead!"
-      : "No one has the lead!"
-  output.innerHTML =
+  roundState.innerHTML =
     resultsMessage +
     winnerMessage +
-    "<br />" +
+    "<br />";
+}
+
+function displayGameState() {
+  let scoreMessage = `Score: You: ${playerScore} Computer: ${computerScore}. `;
+  let turnMessage;
+  if (playerScore >= 5 || computerScore >= 5) {
+    turnMessage = (playerScore > computerScore) ? "Player has won!"
+      : "Computer has won!";
+  } else {
+    turnMessage = (playerScore > computerScore) ? "Player has the lead!"
+      : (playerScore < computerScore) ? "Computer has the lead!"
+      : "No one has the lead!";
+  }
+  gameState.innerHTML =
     scoreMessage +
     "<br /><br />" +
     turnMessage;
@@ -87,7 +99,7 @@ function game() {
   // Update buttons and page text, initialize game variables
   instructions.textContent = "Choose your weapon!";
   rpsButtons();
-  output.textContent = "5 rounds left!";
+  roundState.textContent = "5 rounds left!";
   playerScore = 0;
   computerScore = 0;
   turn = 0;
